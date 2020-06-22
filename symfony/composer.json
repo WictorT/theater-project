@@ -1,0 +1,86 @@
+{
+    "name": "victortimoftii/adpage-theater",
+    "description": "This is a gaming store API, which provides basic functionality for product management",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.1.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "friendsofsymfony/rest-bundle": "^2.3",
+        "jms/serializer-bundle": "^2.4",
+        "lexik/jwt-authentication-bundle": "^2.5",
+        "nelmio/cors-bundle": "^1.5",
+        "pagerfanta/pagerfanta": "^2.0",
+        "predis/predis": "^1.1",
+        "sensio/framework-extra-bundle": "^5.2",
+        "snc/redis-bundle": "^2.1",
+        "symfony/console": "^4.1",
+        "symfony/dependency-injection": "^4.1",
+        "symfony/flex": "^1.0",
+        "symfony/framework-bundle": "^4.1",
+        "symfony/http-foundation": "^4.1",
+        "symfony/lts": "^4@dev",
+        "symfony/options-resolver": "^4.1",
+        "symfony/orm-pack": "^1.0",
+        "symfony/security-bundle": "^4.1",
+        "symfony/serializer": "^4.1",
+        "symfony/validator": "^4.1",
+        "symfony/yaml": "^4.1"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "sensiolabs/security-checker": "^4.1",
+        "symfony/browser-kit": "^4.1",
+        "symfony/css-selector": "^4.1",
+        "symfony/dotenv": "^4.1",
+        "symfony/maker-bundle": "^1.5",
+        "symfony/phpunit-bridge": "^4.1",
+        "symfony/profiler-pack": "^1.0",
+        "symfony/var-dumper": "^4.1"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "security-checker security:check": "script"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false
+        }
+    }
+}

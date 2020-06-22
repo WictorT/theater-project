@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    php:
+        build:
+            context: php-fpm
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/var/log
+
+    nginx:
+        build: nginx
+        ports:
+            - ${NGINX_PORT}:80
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx

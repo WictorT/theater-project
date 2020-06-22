@@ -1,0 +1,37 @@
+sudo: required
+language: php
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.8.1
+
+services:
+  - docker
+
+before_install:
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose -v
+  - docker -v
+  - cp .env.dist .env
+  - cat docker-compose.yml
+
+install:
+  - docker-compose build
+  - docker-compose up -d
+  - docker-compose ps
+  - docker-compose exec php mkdir config/jwt
+  - docker-compose exec php openssl genrsa -out config/jwt/private.pem
+  - docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+  - docker-compose exec php ./setup.sh test
+
+script:
+  - docker-compose exec php ./bin/phpunit
+  # this checks that the YAML config files contain no syntax errors
+  - docker-compose exec php ./bin/console lint:yaml config
+  # this checks that the application doesn't use dependencies with known security vulnerabilities
+  - docker-compose exec php ./bin/console security:check
+  # this checks that the composer.json and composer.lock files are valid
+  - docker-compose exec php composer validate --strict
+  # this checks that Doctrine's mapping configurations are valid
+  - docker-compose exec php ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
