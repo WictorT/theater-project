@@ -1,5 +1,5 @@
 <h1 align="center">
-  Randomly priced games
+  Theater project
 </h1>
 <p align="center">This is a gaming store API, which provides basic functionality for product management </p>
 
